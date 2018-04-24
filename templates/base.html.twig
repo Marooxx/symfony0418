@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        
-    </head>
-    <body>
-        {% block content %}
-        {% endblock %}
-    </body>
+<!doctype html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bienvenue{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% endblock %}
+</head>
+<body>
+    {% block menu %}
+        {% include('partials/navbar.html.twig') %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+        {% include('partials/footer.html.twig') %}
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    {% endblock %}
+</body>
 </html>

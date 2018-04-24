@@ -15,9 +15,9 @@ class HomeController extends Controller {
     public function HomePage(): Response {
 
         // La ligne suivante génère une erreur 500
-        throw new \Exception('Erreur perso');
+        //throw new \Exception('Erreur perso');
 
-        $titreH1='Page d\'accueil';
+        $titreH1='Page d\'accueil numéro 2';
 
         return $this->render('index.html.twig', [
             'title' => $titreH1
@@ -26,7 +26,7 @@ class HomeController extends Controller {
     }
     public function contact(): Response {
         
-        $titreContact = "contact";
+        $titreContact = "Bienvenue sur la page d'accueil";
         return $this->render('contact.html.twig',[
             'titre'=>$titreContact
         ]);
