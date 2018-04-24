@@ -1,0 +1,9 @@
+{% extends  'base.html.twig' %}
+
+{% block content %}
+    <!-- On affiche le message de notification s'il existe -->
+    {% for message in app.flashes('notice') %}
+        <p>Notification : {{ message }}</p>
+    {% endfor %}
+    <h1>Liste des produits</h1>
+{% endblock %}
