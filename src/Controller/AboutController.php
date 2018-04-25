@@ -21,12 +21,17 @@ class AboutController extends Controller
     /**
      * @Route("/session")
      */
-    public function sessionSecret(Session $session)
+    public function sessionSecret()
     {
-        $secret = $session->get('secret') ??  'Pas de secret';
-
-        return $this->render('session.html.twig', [
-            "secret" => $secret
-        ]);
+        return $this->render('session.html.twig');
     }
 }
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Le secret : {{ secret }}</h1>
+    <h1>Le secret : {{ app.session.get('secret', 'Pas de secret') }}</h1>
+    <h1>Le secret : {{ app.session.get('secret') | default('Pas de secret') }}</h1>
 {% endblock %}
 

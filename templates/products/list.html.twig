@@ -1,9 +1,16 @@
 {% extends  'base.html.twig' %}
 
 {% block content %}
-    <!-- On affiche le message de notification s'il existe -->
-    {% for message in app.flashes('notice') %}
-        <p>Notification : {{ message }}</p>
-    {% endfor %}
-    <h1>Liste des produits</h1>
+    <main class="container">
+        <!-- On affiche le message de notification s'il existe -->
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        <h1>Liste des produits</h1>
+    </main>
 {% endblock %}
