@@ -67,23 +67,19 @@ class ProductController extends Controller
 
     /**
      * @Route("/produit/{id}", requirements={"id"="\d+"})
-     * @param int $id
+     * @param Product $product
      * @return Response
      */
-    public function show(int $id)
+    public function show(Product $product): Response
     {
-        // Je récupère le Repository
-        $repo = $this->getDoctrine()->getRepository(Product::class);
-
-        // Je recupère l'enregistrement lié à l'id
-        $product = $repo->find($id);
-        if(!$product) {
-            throw $this->createNotFoundException("Récupération du produit impossible, l'id $id est introuvable. ProductController::show(id)");
-        }
-
         return $this->render("products/show.html.twig", compact('product'));
     }
 }
+
+
+
+
+
 
 
 
