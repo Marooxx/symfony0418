@@ -72,7 +72,49 @@ class ProductController extends Controller
      */
     public function show(Product $product): Response
     {
+        /* Incrémentation du nombre de vues */
+        // Récupérer le manager
+        $manager = $this->getDoctrine()->getManager();
+        // Mise à jour (en mémoire)
+        $currentNbViews = $product->getNbViews();
+        $product->setNbViews($currentNbViews + 1);
+        // Enregistrement
+        $manager->flush();
+
         return $this->render("products/show.html.twig", compact('product'));
+    }
+
+    /**
+     * @Route("/produit/edit/{id}", requirements={"id"="\d+"})
+     * @param Product $product
+     * @return Response
+     */
+    public function edit(Product $product): Response
+    {
+        /* Incrémentation du nombre de vues */
+        // Récupérer le manager
+        $manager = $this->getDoctrine()->getManager();
+        // Mise à jour (en mémoire)
+        $currentNbViews = $product->getNbViews();
+        $product->setNbViews($currentNbViews + 1);
+        // Enregistrement
+        $manager->flush();
+
+        return $this->render('products/show.html.twig', compact('product'));
+    }
+
+    /**
+     * @Route("/produit/suppression/{id}", requirements={"id"="\d+"})
+     * @param Product $product
+     * @return Response
+     */
+    public function delete(Product $product): Response
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($product);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_product_list');
     }
 }
 
