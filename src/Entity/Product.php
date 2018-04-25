@@ -52,7 +52,7 @@ class Product
     public function __construct()
     {
         $this->nbViews = 0;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime("now", new \DateTimeZone('Europe/Paris'));
     }
 
     public function getId()

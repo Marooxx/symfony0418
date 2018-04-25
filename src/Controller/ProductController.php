@@ -25,9 +25,9 @@ class ProductController extends Controller
         // Création du produit en mémoire
         $product = new Product();
         $product
-            ->setName("Guitare")
-            ->setDescription('Instrument de musique extraordinaire')
-            ->setPrice(159.99);
+            ->setName("Banjo")
+            ->setDescription('Instrument de musique rigolo')
+            ->setPrice(1500);
 
         /* Sauvegarde du produit en base de données */
         // Récupération du manager (il exécutera le SQL)
@@ -49,9 +49,39 @@ class ProductController extends Controller
      */
     public function list(): Response
     {
-        // Récupération des produits
+        /* Récupération des produits */
+        // Récupération du repository
+        $repository = $this->getDoctrine()->getRepository(Product::class);
+        // Récupération des enregistrements
+        $products = $repository->findAll();
+
         // Envoi des produits à la vue
-        return $this->render("products/list.html.twig");
+        return $this->render("products/list.html.twig", compact('products'));
+        /*
+         * Forme équivalente
+        return $this->render("products/list.html.twig", [
+            "products" => $products
+        ]);
+        */
+    }
+
+    /**
+     * @Route("/produit/{id}", requirements={"id"="\d+"})
+     * @param int $id
+     * @return Response
+     */
+    public function show(int $id)
+    {
+        // Je récupère le Repository
+        $repo = $this->getDoctrine()->getRepository(Product::class);
+
+        // Je recupère l'enregistrement lié à l'id
+        $product = $repo->find($id);
+        if(!$product) {
+            throw $this->createNotFoundException("Récupération du produit impossible, l'id $id est introuvable. ProductController::show(id)");
+        }
+
+        return $this->render("products/show.html.twig", compact('product'));
     }
 }
 
