@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -18,16 +19,44 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type(
+     *     type="string"
+     * )
+     * @Assert\Length(
+     *     min= 4,
+     *     max= 50,
+     *     minMessage="Le nom doit comporter au moins {{ limit }} caractères",
+     *     maxMessage="Le nom doit comporter maximum {{ limit }} caractères"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Type(
+     *     type="string"
+     * )
+     * @Assert\Length(
+     *     min= 15,
+     *     max= 1000,
+     *     minMessage="La description doit comporter au moins {{ limit }} caractères",
+     *     maxMessage="La description doit comporter maximum {{ limit }} caractères"
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="decimal", scale=2)
+     * @Assert\Type(
+     *     type="float",
+     *     message="Le prix doit être un nombre décimal"
+     * )
+     * @Assert\Length(
+     *     min= 0,
+     *     max= 99999999.99,
+     *     minMessage="Le prix doit être supérieur à {{ limit }}",
+     *     maxMessage="Le prix doit être inférieur à {{ limit }}"
+     * )
      */
     private $price;
 
