@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,17 +20,17 @@ class ProductController extends Controller
      */
     public function add(): Response
     {
+        /* Construction du formulaire */
+        // Création du produit en mémoire
+        $product = new Product();
+        // Récupération du formulaire
+        $formAdd = $this->createForm(ProductType::class, $product);
+
         //// Vérifie la formulaire envoyé
         // Si le formulaire est valide : on ajout le produit en BDD, on affiche une notification
 
-        // Création du produit en mémoire
-        $product = new Product();
-        $product
-            ->setName("Banjo")
-            ->setDescription('Instrument de musique rigolo')
-            ->setPrice(1500);
-
         /* Sauvegarde du produit en base de données */
+        /*
         // Récupération du manager (il exécutera le SQL)
         $manager = $this->getDoctrine()->getManager();
         // On prépare la requête SQL
@@ -39,7 +40,12 @@ class ProductController extends Controller
 
         $this->addFlash('notice', 'Le produit a bien été ajouté');
         return $this->redirectToRoute('app_product_list');
+        */
+
         // Si le formulaire n'est pas valide: on affiche le formulaire
+        return $this->render('products/add.html.twig', [
+            "formAdd" => $formAdd->createView()
+        ]);
     }
 
     /**

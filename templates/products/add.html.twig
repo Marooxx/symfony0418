@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <main class="container">
+        <h1>Ajout d'un produit</h1>
+
+        {#{ form(formAdd) }#}
+
+        {#{ form_start(formAdd) }}
+            {{ form_widget(formAdd) }}
+        {{ form_end(formAdd) }#}
+
+        {#{ form_start(formAdd) }}
+            {{ form_row(formAdd.name) }}
+            {{ form_row(formAdd.price) }}
+            {{ form_row(formAdd.description) }}
+        {{ form_end(formAdd) }#}
+
+        {{ form_start(formAdd) }}
+
+            {{ form_label(formAdd.price, "Prix") }}
+            {{ form_widget(formAdd.price,
+                {
+                    "attr" : {
+                        "class" : "bg-tropical"
+                    }
+                }
+            ) }}
+            {{ form_errors(formAdd.price) }}
+
+            {{ form_row(formAdd.description) }}
+        {{ form_end(formAdd) }}
+    </main>
+{% endblock %}
+
