@@ -23,7 +23,7 @@
                                 <p class="card-text">{{ product.description }}</p>
                                 <p class="card-text">
                                     <small class="text-muted">
-                                        Créé le {{ product.createdAt | date('d/m/Y à H:i') }}
+                                        Créé le {{ product.createdAt | date('d/m/Y à H:i', "Europe/Paris") }}
                                     </small>
                                 </p>
                             </div>

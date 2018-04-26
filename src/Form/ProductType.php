@@ -22,12 +22,12 @@ class ProductType extends AbstractType
             ])
             ->add('description')
             ->add('price')
-            ->add('add', SubmitType::class, [
+            /*->add('add', SubmitType::class, [
                 "label" => "Ajouter",
                 "attr" => [
                     "class" => "btn-success"
                 ]
-            ])
+            ])*/
         ;
     }
 

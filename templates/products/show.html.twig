@@ -7,7 +7,7 @@
             <span class="badge badge-info">{{ product.price }}€</span>
         </h1>
         <p class="text-muted">
-            Créé le {{ product.createdAt | date('d/m/Y à H:i') }},
+            Créé le {{ product.createdAt | date('d/m/Y à H:i', "Europe/Paris") }},
             {{ product.nbViews }} vues
         </p>
         <p>{{ product.description }}</p>

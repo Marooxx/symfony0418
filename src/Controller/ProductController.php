@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
      * @Route("/produit/ajout")
      * @return Response
      */
-    public function add(): Response
+    public function add(Request $request): Response
     {
         /* Construction du formulaire */
         // Création du produit en mémoire
@@ -26,22 +27,27 @@ class ProductController extends Controller
         // Récupération du formulaire
         $formAdd = $this->createForm(ProductType::class, $product);
 
-        //// Vérifie la formulaire envoyé
-        // Si le formulaire est valide : on ajout le produit en BDD, on affiche une notification
+        $formAdd->handleRequest($request);
 
-        /* Sauvegarde du produit en base de données */
-        /*
-        // Récupération du manager (il exécutera le SQL)
-        $manager = $this->getDoctrine()->getManager();
-        // On prépare la requête SQL
-        $manager->persist($product);
-        // On exécute la requête SQL
-        $manager->flush();
+        //// Vérifier que le formulaire est envoyé et valide
+        if($formAdd->isSubmitted() && $formAdd->isValid()) {
+            // Si le formulaire est valide : on ajoute le produit en BDD, on affiche une notification
+            /* Sauvegarde du produit en base de données */
+            // Stocker les données du formulaire dans un objet Product
+            $product = $formAdd->getData();
+            // Récupération du manager (il exécutera le SQL)
+            $manager = $this->getDoctrine()->getManager();
+            // On prépare la requête SQL
+            $manager->persist($product);
+            // On exécute la requête SQL
+            $manager->flush();
 
-        $this->addFlash('notice', 'Le produit a bien été ajouté');
-        return $this->redirectToRoute('app_product_list');
-        */
+            // Ajout du message flash en session (notification pour l'utilisateur)
+            $this->addFlash('notice', 'Le produit a bien été ajouté');
+            // Redirection vers la liste des produits
+            return $this->redirectToRoute('app_product_list');
 
+        }
         // Si le formulaire n'est pas valide: on affiche le formulaire
         return $this->render('products/add.html.twig', [
             "formAdd" => $formAdd->createView()
