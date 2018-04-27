@@ -31,6 +31,14 @@
                                         Créé le {{ product.createdAt | date('d/m/Y à H:i', "Europe/Paris") }}
                                     </small>
                                 </p>
+                                <p class="card-text">
+                                    <a href="{{ path('app_product_update', {id: product.id}) }}" class="btn btn-dark">
+                                        Éditer
+                                    </a>
+                                    <a href="{{ path('app_product_delete', {id: product.id}) }}" class="btn btn-danger">
+                                        Supprimer
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>

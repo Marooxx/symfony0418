@@ -134,6 +134,9 @@
     "symfony/event-dispatcher": {
         "version": "v4.0.8"
     },
+    "symfony/expression-language": {
+        "version": "v4.0.8"
+    },
     "symfony/filesystem": {
         "version": "v4.0.8"
     },
@@ -214,6 +217,12 @@
             "version": "4.0",
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
+    },
+    "symfony/security-core": {
+        "version": "v4.0.8"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.0.8"
     },
     "symfony/stopwatch": {
         "version": "v4.0.8"

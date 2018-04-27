@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <main class="container">
+        <h1>Modification d'un produit</h1>
+
+        {{ form_start(formEdit) }}
+
+            {{ form_row(formEdit.name) }}
+            {{ form_row(formEdit.description) }}
+
+            {{ form_label(formEdit.price, "Prix") }}
+            {{ form_widget(formEdit.price, {
+                    "attr" : {"class" : "bg-tropical"}}
+               ) }}
+
+            {{ form_row(formEdit.category) }}
+
+            <input type="submit" value="Modifier" class="btn btn-success" />
+        {{ form_end(formEdit) }}
+    </main>
+{% endblock %}
+
+
+
+
+
+
+

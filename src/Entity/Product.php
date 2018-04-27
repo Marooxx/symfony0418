@@ -47,10 +47,6 @@ class Product
 
     /**
      * @ORM\Column(type="decimal", scale=2)
-     * @Assert\Type(
-     *     type="float",
-     *     message="Le prix doit être un nombre décimal"
-     * )
      * @Assert\Length(
      *     min= 0,
      *     max= 99999999.99,
@@ -76,7 +72,7 @@ class Product
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

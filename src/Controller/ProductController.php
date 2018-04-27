@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,6 +57,45 @@ class ProductController extends Controller
     }
 
     /**
+     * Modifie un produit en base de données
+     * @Route("/produit/edition/{id}")
+     * @param Request $request
+     * @param Product $product
+     * @return Response
+     */
+    public function update(Request $request, Product $product): Response
+    {
+        /* Construction du formulaire */
+        // Récupération du formulaire
+        $formEdit = $this->createForm(ProductType::class, $product);
+
+        $formEdit->handleRequest($request);
+
+        //// Vérifier que le formulaire est envoyé et valide
+        if($formEdit->isSubmitted() && $formEdit->isValid()) {
+            // Si le formulaire est valide : on ajoute le produit en BDD, on affiche une notification
+            /* Sauvegarde du produit en base de données */
+            // Stocker les données du formulaire dans un objet Product
+            $product = $formEdit->getData();
+            // Récupération du manager (il exécutera le SQL)
+            $manager = $this->getDoctrine()->getManager();
+            // On exécute la requête SQL
+            $manager->flush();
+
+            // Ajout du message flash en session (notification pour l'utilisateur)
+            $this->addFlash('notice', 'Le produit a bien été modifié');
+            // Redirection vers la liste des produits
+            return $this->redirectToRoute('app_product_list');
+
+        }
+
+        // Si le formulaire n'est pas valide: on affiche le formulaire
+        return $this->render('products/edit.html.twig', [
+            "formEdit" => $formEdit->createView()
+        ]);
+    }
+
+    /**
      * Liste les produits existants
      * @Route("/produits", name="app_product_list")
      * @return Response
@@ -80,22 +120,12 @@ class ProductController extends Controller
 
     /**
      * @Route("/produit/{id}", requirements={"id"="\d+"})
-     * @param int $id
+     * @param Product $product
+     * @Entity("product", expr="repository.findOneWithCategory(id)")
      * @return Response
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function show(int $id): Response
+    public function show(Product $product): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Product::class);
-        $product = $repo->findOneWithCategory($id);
-
-        if(!$product) {
-            throw $this->createNotFoundException(
-                'Produit non-trouvé ProductController::show
-                (id : '.$id.')'
-            );
-        }
-
         /* Incrémentation du nombre de vues */
         // Récupérer le manager
         $manager = $this->getDoctrine()->getManager();
