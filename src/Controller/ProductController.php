@@ -17,6 +17,7 @@ class ProductController extends Controller
     /**
      * Ajoute un produit en base de données
      * @Route("/produit/ajout")
+     * @param Request $request
      * @return Response
      */
     public function add(Request $request): Response
