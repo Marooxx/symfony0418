@@ -80,11 +80,15 @@ class ProductController extends Controller
 
     /**
      * @Route("/produit/{id}", requirements={"id"="\d+"})
-     * @param Product $product
+     * @param int $id
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function show(Product $product): Response
+    public function show(int $id): Response
     {
+        $repo = $this->getDoctrine()->getRepository(Product::class);
+        $product = $repo->findOneWithCategory($id);
+
         /* Incrémentation du nombre de vues */
         // Récupérer le manager
         $manager = $this->getDoctrine()->getManager();
@@ -94,7 +98,9 @@ class ProductController extends Controller
         // Enregistrement
         $manager->flush();
 
-        return $this->render("products/show.html.twig", compact('product'));
+        return $this->render("products/show.html.twig", [
+            "product"  => $product
+        ]);
     }
 
     /**

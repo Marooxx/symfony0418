@@ -3,13 +3,15 @@
 {% block content %}
     <main class="container">
         <h1>
-            {{ product.name }}
-            <span class="badge badge-info">{{ product.price }}€</span>
+            {{ product.name }} - {{ product.price }} €
         </h1>
         <p class="text-muted">
             Créé le {{ product.createdAt | date('d/m/Y à H:i', "Europe/Paris") }},
             {{ product.nbViews }} vues
+            <br/>
+            <span class="badge badge-success">{{ product.category.name | capitalize }}</span>
         </p>
+
         <p>{{ product.description }}</p>
     </main>
 {% endblock %}
