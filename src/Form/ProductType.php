@@ -21,6 +21,7 @@ class ProductType extends AbstractType
                 "label" => "Nom du produit"
             ])
             ->add('description')
+            ->add('category')
             ->add('price', null, [
                 "invalid_message" => "Le prix doit être un nombre à virgules"
             ])

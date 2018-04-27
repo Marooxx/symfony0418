@@ -22,6 +22,11 @@
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.description }}</p>
                                 <p class="card-text">
+                                    <a href="{{ path('app_product_show', {id: product.id}) }}" class="btn btn-info">
+                                        Voir le détail
+                                    </a>
+                                </p>
+                                <p class="card-text">
                                     <small class="text-muted">
                                         Créé le {{ product.createdAt | date('d/m/Y à H:i', "Europe/Paris") }}
                                     </small>

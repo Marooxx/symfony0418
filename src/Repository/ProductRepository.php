@@ -23,6 +23,7 @@ class ProductRepository extends ServiceEntityRepository
      * @param int $id
      * @return Product|null
      * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Exception
      */
     public function findOneWithCategory(int $id): ?Product
     {
@@ -34,8 +35,13 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
         ;
 
-        $result = $query->getOneOrNullResult();
-
-        return $result;
+        try {
+            return $query->getOneOrNullResult();
+        }
+        catch(\Exception $e) {
+            throw new \Exception("Une erreur est survenue lors de la récupération des produits 
+            ProductRepository::findOneWithCategory avec l'id $id ".
+            $e->getMessage());
+        }
     }
 }

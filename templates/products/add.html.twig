@@ -17,15 +17,16 @@
         {{ form_end(formAdd) }#}
 
         {{ form_start(formAdd) }}
-        {{ form_row(formAdd.description) }}
-            {{ form_label(formAdd.name) }}
-            {{ form_widget(formAdd.name) }}
+
+            {{ form_row(formAdd.name) }}
+            {{ form_row(formAdd.description) }}
 
             {{ form_label(formAdd.price, "Prix") }}
             {{ form_widget(formAdd.price, {
                     "attr" : {"class" : "bg-tropical"}}
                ) }}
 
+            {{ form_row(formAdd.category) }}
 
             <input type="submit" value="Ajouter" class="btn btn-success" />
         {{ form_end(formAdd) }}

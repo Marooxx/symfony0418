@@ -89,6 +89,13 @@ class ProductController extends Controller
         $repo = $this->getDoctrine()->getRepository(Product::class);
         $product = $repo->findOneWithCategory($id);
 
+        if(!$product) {
+            throw $this->createNotFoundException(
+                'Produit non-trouvé ProductController::show
+                (id : '.$id.')'
+            );
+        }
+
         /* Incrémentation du nombre de vues */
         // Récupérer le manager
         $manager = $this->getDoctrine()->getManager();
